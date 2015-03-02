@@ -1,8 +1,8 @@
 /*
  * slush-btrz-service
- * https://github.com/hgarcia/slush-btrz-service
+ * https://github.com/Betterez/slush-btrz-service
  *
- * Copyright (c) 2015, hgarcia
+ * Copyright (c) 2015, Betterez
  * Licensed under the MIT license.
  */
 'use strict';
