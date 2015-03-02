@@ -2,22 +2,22 @@
   "name": "slush-btrz-service",
   "description": "Slush genrator for express based microservices with swagger support",
   "version": "0.1.0",
-  "homepage": "https://github.com/hgarcia/slush-btrz-service",
+  "homepage": "https://github.com/betterez/slush-btrz-service",
   "author": {
     "name": "hgarcia",
     "email": "hernan@dynamicprogrammer.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hgarcia/slush-btrz-service.git"
+    "url": "git://github.com/betterez/slush-btrz-service.git"
   },
   "bugs": {
-    "url": "https://github.com/hgarcia/slush-btrz-service/issues"
+    "url": "https://github.com/betterez/slush-btrz-service/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/hgarcia/slush-btrz-service/blob/master/LICENSE"
+      "url": "https://github.com/betterez/slush-btrz-service/blob/master/LICENSE"
     }
   ],
   "main": "slushfile.js",
