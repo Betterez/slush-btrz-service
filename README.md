@@ -1,4 +1,4 @@
-# Slush Btrz-service [![Build Status](https://secure.travis-ci.org/hgarcia/slush-btrz-service.png?branch=master)](https://travis-ci.org/hgarcia/slush-btrz-service) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-btrz-service.png)](http://badges.enytc.com/for/npm/slush-btrz-service)
+# Slush btrz-service [![Build Status](https://secure.travis-ci.org/betterez/slush-btrz-service.png?branch=master)](https://travis-ci.org/betterez/slush-btrz-service) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-btrz-service.png)](http://badges.enytc.com/for/npm/slush-btrz-service)
 
 > Slush generator for express based microservices with swagger support
 
@@ -35,16 +35,16 @@ To find out more about Slush, check out the [documentation](https://github.com/s
 
 ## Contributing
 
-See the [CONTRIBUTING Guidelines](https://github.com/hgarcia/slush-btrz-service/blob/master/CONTRIBUTING.md)
+See the [CONTRIBUTING Guidelines](https://github.com/betterez/slush-btrz-service/blob/master/CONTRIBUTING.md)
 
 ## Support
-If you have any problem or suggestion please open an issue [here](https://github.com/hgarcia/slush-btrz-service/issues).
+If you have any problem or suggestion please open an issue [here](https://github.com/betterez/slush-btrz-service/issues).
 
 ## License 
 
 The MIT License
 
-Copyright (c) 2015, hgarcia
+Copyright (c) 2015
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
