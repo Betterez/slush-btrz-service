@@ -1,0 +1,29 @@
+"use strict";
+
+function getSpec(swagger) {
+  return {
+    "description" : "Returns the status of the service",
+    "path" : "/healthcheck",
+    "notes" : "Returns a general status for the service, and a list of external services and their status",
+    "summary" : "Service status",
+    "method": "GET",
+    "type" : "Healthcheck",
+    "produces" : ["application/json"],
+    "errorResponses" : [],
+    "nickname" : "healthcheck"
+  };
+}
+
+function getHealthChecks(swagger, config) {
+  return {
+    "spec": getSpec(swagger),
+    "action": function (req, res) {
+      let result = {status: 200, services: []};
+      res.status(200).json(result);
+    }
+  };
+}
+
+module.exports = function (swagger, config) {
+  return getHealthChecks(swagger, config);
+};

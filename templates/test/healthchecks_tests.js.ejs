@@ -1,0 +1,30 @@
+"use strict";
+
+describe("/<%-subpath%>/healthchecks", function () {
+
+  let app = require("../"),
+    request = require("supertest");
+
+  it("should display status of service", function (done) {
+    request(app)
+      .get("/<%-subpath%>/healthcheck")
+      .set("Accept", "application/json")
+      .expect(200)
+      .expect({status: 200, services: []})
+      .end(function (err) {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
+  it.skip("should set status 500 if any one of the services is down", function () {
+
+  });
+
+  it.skip("should add status of MongoDb", function () {
+
+  });
+
+});

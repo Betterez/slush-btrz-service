@@ -1,0 +1,16 @@
+"use strict";
+
+module.exports = function () {
+  return {
+    port: 3050,
+    db: {
+      options: {
+        "database": "<%-subpath%>_test"
+      }
+    },
+    authenticator: {
+      testKey: "test-api-key",
+      testUser: {_id: "test-api-key"}
+    }
+  };
+};

@@ -1,0 +1,52 @@
+"use strict";
+
+let express = require("express"),
+  logentries = require("le_node"),
+  winston = require("winston"),
+  cors = require("cors"),
+  http = require("http"),
+  config = require("./config")(process.env),
+  Authenticator = require("btrz-auth-api-key"),
+  swaggerFactory = require("swagger-node-express");
+
+let app = module.exports = express();
+let subpath = express();
+
+  let authenticator = new Authenticator(config.authenticator);
+  app.set("config", config);
+  app.use(cors());
+  app.use(authenticator.initialize({userProperty:"account"}));
+  app.use(authenticator.authenticate());
+  app.use(config.subpath, subpath);
+
+  if (config.logentries && config.logentries.token) {
+    var logger = logentries.logger({
+      token: config.logentries.token
+    });
+    logger.winston(winston);
+  }
+
+  let swagger = swaggerFactory.createNew(subpath);
+  swagger.configureSwaggerPaths("", "/api-docs", "");
+
+  swagger.setHeaders = function setHeaders (res) {
+    res.header("Access-Control-Allow-Headers", "Content-Type, X-API-KEY");
+  };
+
+  require("./resources")(swagger, config);
+
+  swagger.setApiInfo({
+    title: "<%- subpathCaps %> end points",
+    description: "We use Swagger to document and describe our API.<br/> You can find out more about Swagger at <a href=\"http://swagger.wordnik.com\" title=\"Swagger\" target=\"_blank\">http://swagger.wordnik.com</a> or on irc.freenode.net, #swagger.<br/>You will need an account on <a href=\"https://www.betterez.com\" title=\"Betterez\" target=\"_blank\">Betterez</a> and an api key to test the api.",
+    termsOfServiceUrl: "http://betterez.com/terms/",
+    contact: "support@betterez.com",
+    license: "Apache 2.0",
+    licenseUrl: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  });
+
+  swagger.configure(`${config.fullDomain()}${config.subpath}`, "0.1");
+
+  http.createServer(app).listen(config.port, function () {
+    winston.info("Express server listening on port " + config.port);
+    winston.info("process.env", process.env.NODE_ENV);
+  });

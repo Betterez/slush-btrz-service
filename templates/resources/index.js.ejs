@@ -1,0 +1,13 @@
+"use strict";
+
+let models = require("./models");
+
+module.exports = function (swagger, config) {
+  swagger.addModels(models)
+    .addGet(require("./get-healthcheck")(swagger, config));
+    /*
+      .addPost()
+      .addPut()
+      .addDelete()
+    */
+};

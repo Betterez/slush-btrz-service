@@ -1,0 +1,28 @@
+"use strict";
+
+function getDbConfig() {
+  return {
+    options: {
+      database: "",
+      username: "",
+      password: ""
+    },
+    uris: [
+    ":27017"
+    ]
+  };
+}
+
+module.exports = function () {
+  return {
+    protocol: "https",
+    logentries: {
+      token: "<%-sandboxLeToken%>"
+    },
+    domain: "<%-sandboxDomain%>",
+    db: getDbConfig(),
+    authenticator: {
+      db: getDbConfig()
+    }
+  };
+};

@@ -1,0 +1,38 @@
+"use strict";
+
+module.exports = {
+  models: {
+    "Healthcheck": {
+      "id": "Healthcheck",
+      "required": ["status", "services"],
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "enum": [200, 404, 500]
+        },
+        "services": {
+          "type": "array",
+          "items":{
+            "$ref": "Service"
+          }
+        }
+      }
+    },
+    "Service": {
+      "id": "Service",
+      "required": ["name", "status"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the service that this api consumes"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "enum": [200, 400, 401, 403, 404, 407, 408, 409, 410, 500]
+        }
+      }
+    }
+  }
+};

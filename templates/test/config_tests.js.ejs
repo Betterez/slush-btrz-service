@@ -1,0 +1,193 @@
+"use strict";
+
+describe("Config", function () {
+
+  let expect = require("chai").expect;
+
+  describe("test", function () {
+
+    it("should return an authenticator.testKey", function () {
+      let config = require("../config")({NODE_ENV: "test"});
+      expect(config.authenticator.testKey).to.be.eql("test-api-key");
+    });
+
+    it("should return an authenticator.testUser", function () {
+      let config = require("../config")({NODE_ENV: "test"});
+      expect(config.authenticator.testUser).to.be.eql({_id: "test-api-key"});
+    });
+
+    it("should use a different port for the app", function () {
+      let config = require("../config")({NODE_ENV: "test"});
+      expect(config.port).to.be.eql(3050);
+    });
+
+    it("should use a test db", function () {
+      let config = require("../config")({NODE_ENV: "test"});
+      expect(config.db.options.database).to.be.eql("<%-subpath%>_test");
+    });
+  });
+
+  describe("development", function () {
+
+    it("should return a default port", function () {
+      let config = require("../config")({});
+      expect(config.port).to.be.eql(3000);
+    });
+
+    it("should return a subpath", function () {
+      let config = require("../config")({});
+      expect(config.subpath).to.be.eql("/<%-subpath%>");
+    });
+
+    it("should return a default domain and protocol", function () {
+      let config = require("../config")({});
+      expect(config.protocol).to.be.eql("http");
+      expect(config.domain).to.be.eql("localhost");
+    });
+
+    it("should return the full url", function () {
+      let config = require("../config")({});
+      expect(config.fullDomain()).to.be.eql("http://localhost:3000");
+    });
+
+    it("should return a db configuration", function () {
+      let config = require("../config")({});
+      expect(config.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.db.options.username).to.be.eql("");
+      expect(config.db.options.password).to.be.eql("");
+      expect(config.db.uris[0]).to.be.eql("127.0.0.1:27017");
+    });
+
+    it("should return the default config for authenticator", function () {
+      let config = require("../config")({});
+      expect(config.authenticator.ignoredRoutes).to.be.eql(["^/<%-subpath%>/api-docs", "^/<%-subpath%>/healthcheck"]);
+      expect(config.authenticator.collection.name).to.be.eql("apikeys");
+      expect(config.authenticator.collection.property).to.be.eql("key");
+      expect(config.authenticator.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.authenticator.db.options.username).to.be.eql("");
+      expect(config.authenticator.db.options.password).to.be.eql("");
+      expect(config.authenticator.db.uris[0]).to.be.eql("127.0.0.1:27017");
+    });
+  });
+
+  describe("port", function () {
+
+    it("should return the env PORT", function () {
+      let config = require("../config")({PORT: 5050});
+      expect(config.port).to.be.eql(5050);
+    });
+  });
+
+  describe("staging", function () {
+
+    it("should have logentries set", function () {
+      let config = require("../config")({NODE_ENV: "staging"});
+      expect(config.logentries.token).to.be.eql("<%-stagingLeToken%>");
+    });
+
+    it("should return the staging domain and protocol", function () {
+      let config = require("../config")({NODE_ENV: "staging"});
+      expect(config.protocol).to.be.eql("https");
+      expect(config.domain).to.be.eql("<%-stagingDomain%>");
+    });
+
+    it("should return the full url", function () {
+      let config = require("../config")({NODE_ENV: "staging"});
+      expect(config.fullDomain()).to.be.eql("https://<%-stagingDomain%>:3000");
+    });
+
+    it("should return a db configuration", function () {
+      let config = require("../config")({NODE_ENV: "staging"});
+      expect(config.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.db.options.username).to.be.eql("DB-USER-HERE");
+      expect(config.db.options.password).to.be.eql("DB-PWD-HERE");
+      expect(config.db.uris[0]).to.be.eql("IP-OR-URL-HERE:27017");
+    });
+
+    it("should return the staging config for authenticator", function () {
+      let config = require("../config")({NODE_ENV: "staging"});
+      expect(config.authenticator.collection.name).to.be.eql("apikeys");
+      expect(config.authenticator.collection.property).to.be.eql("key");
+      expect(config.authenticator.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.authenticator.db.options.username).to.be.eql("DB-USER-HERE");
+      expect(config.authenticator.db.options.password).to.be.eql("DB-PWD-HERE");
+      expect(config.authenticator.db.uris[0]).to.be.eql("IP-OR-URL-HERE:27017");
+    });
+  });
+
+  describe("sandbox", function () {
+
+    it("should have logentries set", function () {
+      let config = require("../config")({NODE_ENV: "sandbox"});
+      expect(config.logentries.token).to.be.eql("<%-sandboxLeToken%>");
+    });
+
+    it("should return the sandbox domain and protocol", function () {
+      let config = require("../config")({NODE_ENV: "sandbox"});
+      expect(config.protocol).to.be.eql("https");
+      expect(config.domain).to.be.eql("<%-sandboxDomain%>");
+    });
+
+    it("should return the full url", function () {
+      let config = require("../config")({NODE_ENV: "sandbox"});
+      expect(config.fullDomain()).to.be.eql("https://<%-sandboxDomain%>:3000");
+    });
+
+    it("should return a db configuration", function () {
+      let config = require("../config")({NODE_ENV: "sandbox"});
+      expect(config.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.db.options.username).to.be.eql("DB-USER-HERE");
+      expect(config.db.options.password).to.be.eql("DB-PWD-HERE");
+      expect(config.db.uris[0]).to.be.eql("IP-OR-URL-HERE:27017");
+    });
+
+    it("should return the sandbox config for authenticator", function () {
+      let config = require("../config")({NODE_ENV: "sandbox"});
+      expect(config.authenticator.collection.name).to.be.eql("apikeys");
+      expect(config.authenticator.collection.property).to.be.eql("key");
+      expect(config.authenticator.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.authenticator.db.options.username).to.be.eql("DB-USER-HERE");
+      expect(config.authenticator.db.options.password).to.be.eql("DB-PWD-HERE");
+      expect(config.authenticator.db.uris[0]).to.be.eql("IP-OR-URL-HERE:27017");
+    });
+  });
+
+  describe("production", function () {
+
+    it("should have logentries set", function () {
+      let config = require("../config")({NODE_ENV: "production"});
+      expect(config.logentries.token).to.be.eql("<%-productionLeToken%>");
+    });
+
+    it("should return the production domain and protocol", function () {
+      let config = require("../config")({NODE_ENV: "production"});
+      expect(config.protocol).to.be.eql("https");
+      expect(config.domain).to.be.eql("<%- productionDomain %>");
+    });
+
+    it("should return the full url", function () {
+      let config = require("../config")({NODE_ENV: "production"});
+      expect(config.fullDomain()).to.be.eql("https://<%- productionDomain %>:3000");
+    });
+
+    it("should return a db configuration", function () {
+      let config = require("../config")({NODE_ENV: "production"});
+      expect(config.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.db.options.username).to.be.eql("DB-USER-HERE");
+      expect(config.db.options.password).to.be.eql("DB-PWD-HERE");
+      expect(config.db.uris[0]).to.be.eql("IP-OR-URL-HERE:27017");
+      expect(config.db.uris[1]).to.be.eql("IP-OR-URL-HERE:27017");
+    });
+
+    it("should return the production config for authenticator", function () {
+      let config = require("../config")({NODE_ENV: "production"});
+      expect(config.authenticator.collection.name).to.be.eql("apikeys");
+      expect(config.authenticator.collection.property).to.be.eql("key");
+      expect(config.authenticator.db.options.database).to.be.eql("DB-NAME-HERE");
+      expect(config.authenticator.db.options.username).to.be.eql("DB-USER-HERE");
+      expect(config.authenticator.db.options.password).to.be.eql("DB-PWD-HERE");
+      expect(config.db.uris[0]).to.be.eql("IP-OR-URL-HERE:27017");
+      expect(config.db.uris[1]).to.be.eql("IP-OR-URL-HERE:27017");
+    });
+  });
+});

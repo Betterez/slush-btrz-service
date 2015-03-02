@@ -1,0 +1,19 @@
+"use strict";
+
+let models = require("../../resources/models");
+
+/*
+Define a fake schema id, also set date types to string due to some issues on the faker
+function dataImportsSchema () {
+  let schema = models.models.DataImport;
+  schema.id = "http://json-schema.org/DataImport#";
+  schema.properties.uploaded.type = "string";
+  return schema;
+}
+*/
+
+module.exports = function () {
+  let fixtures = new Map();
+  /*fixtures.set("dataimport", dataImportsSchema());*/
+  return fixtures;
+};

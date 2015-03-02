@@ -1,0 +1,56 @@
+{
+  "name": "<%= appName %>",
+  "version": "1.0.0",
+  "description": "Betterez platform Api end points to upload files",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test multi='xunit=test-results/xunit.xml spec=-' node_modules/istanbul-harmony/lib/cli.js cover node_modules/mocha/bin/_mocha -- --ui bdd -R mocha-multi -t 5000",
+    "test-w": "NODE_ENV=test node_modules/mocha/bin/mocha -w",
+    "start": "node_modules/forever/bin/forever . -w",
+    "watch": "node_modules/nodemon/bin/nodemon.js ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Betterez/<%= appName %>.git"
+  },
+  "keywords": [
+    "API",
+    "Uploader",
+    "File"
+  ],
+  "author": "Betterez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Betterez/<%= appName %>/issues"
+  },
+  "homepage": "https://github.com/Betterez/<%= appName %>",
+  "dependencies": {
+    "aws-sdk": "^2.1.7",
+    "btrz-auth-api-key": "git+ssh://git@github.com:Betterez/btrz-auth-api-key.git#master",
+    "btrz-simple-dao": "git+ssh://git@github.com:Betterez/btrz-simple-dao.git#master",
+    "cors": "^2.5.2",
+    "express": "^4.11.0",
+    "forever": "^0.13.0",
+    "le_node": "^0.2.1",
+    "lodash": "^2.4.1",
+    "moment": "^2.9.0",
+    "multiparty": "^4.1.1",
+    "swagger-node-express": "^2.1.3",
+    "swagger-validation": "git://github.com:Betterez/swagger-validation.git#master",
+    "uuid": "^2.0.1",
+    "winston": "^0.9.0"
+  },
+  "devDependencies": {
+    "chai": "latest",
+    "chance": "0.7.1",
+    "istanbul-harmony": "latest",
+    "jsinspect": "latest",
+    "nodemon": "latest",
+    "mocha": "latest",
+    "mocha-multi": "latest",
+    "btrz-mongo-factory": "git://github.com:Betterez/btrz-mongo-factory.git",
+    "sinon": "latest",
+    "supertest": "latest",
+    "xunit-file": "latest"
+  }
+}

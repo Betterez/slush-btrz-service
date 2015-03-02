@@ -1,0 +1,47 @@
+"use strict";
+var _ = require("lodash");
+
+function getDbConfig() {
+  return {
+    "options": {
+      "database": "",
+      "username": "",
+      "password": ""
+    },
+    "uris": [
+      "127.0.0.1:27017"
+    ]
+  };
+}
+
+module.exports = function (env) {
+
+  let defaultConfig = {
+    fullDomain: function () {
+      return `${this.protocol}://${this.domain}:${this.port}`;
+    },
+    port: env.PORT || 3000,
+    protocol: "http",
+    domain: "localhost",
+    subpath: "/<%-subpath%>",
+    logentries: {
+      token: "<%-localhostLeToken%>"
+    },
+    db: getDbConfig(),
+    authenticator: {
+      testKey: "",
+      ignoredRoutes: ["^/<%-subpath%>/api-docs", "^/<%-subpath%>/healthcheck"],
+      collection: {
+          name: "apikeys",
+          property: "key"
+        },
+      db: getDbConfig()
+      }
+    };
+
+    if (env.NODE_ENV) {
+      let overrides = require(`./config-${env.NODE_ENV}`)();
+      return _.merge({}, defaultConfig, overrides);
+    }
+    return defaultConfig;
+};
