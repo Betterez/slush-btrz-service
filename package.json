@@ -1,7 +1,7 @@
 {
   "name": "slush-btrz-service",
   "description": "Slush generator for express based microservices with swagger support",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "homepage": "https://github.com/Betterez/slush-btrz-service",
   "author": {
     "name": "hgarcia",
